@@ -1,33 +1,13 @@
-/*
- * PROJECT III: GeneralMatrix.java
- *
- * This file contains a template for the class GeneralMatrix. Not all methods
- * are implemented. Make sure you have carefully read the project formulation
- * before starting to work on this file. You will also need to have completed
- * the Matrix class.
- *
- * Remember not to change the names, parameters or return types of any
- * variables in this file!
- *
- * The function of the methods and instance variables are outlined in the
- * comments directly above them.
- */
-
 import java.util.Arrays;
 
 public class GeneralMatrix extends Matrix {
-    /**
-     * This instance variable stores the elements of the matrix.
-     */
+    /* This instance variable stores the elements of the matrix.*/
     private double[][] data;
 
-    /**
-     * Constructor function: should initialise m and n through the Matrix
+    /* Constructor function: should initialise m and n through the Matrix
      * constructor and set up the data array.
-     *
      * @param m  The first dimension of the array.
-     * @param n  The second dimension of the array.
-     */
+     * @param n  The second dimension of the array.*/
     public GeneralMatrix(int m, int n) throws MatrixException {
    	super(m,n);
 	if(m<1 || n<1){
@@ -36,12 +16,9 @@ public class GeneralMatrix extends Matrix {
 	data = new double[m][n];     
     }
 
-    /**
-     * Constructor function. This is a copy constructor; it should create a
+    /* Constructor function. This is a copy constructor; it should create a
      * copy of the matrix A.
-     *
-     * @param A  The matrix to create a copy of.
-     */
+     * @param A  The matrix to create a copy of.*/
     public GeneralMatrix(GeneralMatrix A) {
 	super(A.m,A.n);
 	data = new double[A.m][A.n];
@@ -52,13 +29,10 @@ public class GeneralMatrix extends Matrix {
 	}
     }
     
-    /**
-     * Getter function: return the (i,j)'th entry of the matrix.
-     *
+    /* Getter function: return the (i,j)'th entry of the matrix.
      * @param i  The location in the first co-ordinate.
      * @param j  The location in the second co-ordinate.
-     * @return   The (i,j)'th entry of the matrix.
-     */
+     * @return   The (i,j)'th entry of the matrix.*/
     public double getIJ(int i, int j) {
         if(i>=0 && i<m && j>=0 && j<n){
 	   return data[i][j];
@@ -67,13 +41,10 @@ public class GeneralMatrix extends Matrix {
 	}
     }
     
-    /**
-     * Setter function: set the (i,j)'th entry of the data array.
-     *
+    /* Setter function: set the (i,j)'th entry of the data array.
      * @param i    The location in the first co-ordinate.
      * @param j    The location in the second co-ordinate.
-     * @param val  The value to set the (i,j)'th entry to.
-     */
+     * @param val  The value to set the (i,j)'th entry to.*/
     public void setIJ(int i, int j, double val) {
         if(i>=0 && i<m && j>=0 && j<n){
             data[i][j]=val;
@@ -82,11 +53,8 @@ public class GeneralMatrix extends Matrix {
         }
     }
     
-    /**
-     * Return the determinant of this matrix.
-     *
-     * @return The determinant of the matrix.
-     */
+    /* Return the determinant of this matrix.
+     * @return The determinant of the matrix.*/
     public double determinant() {
 	double[] d = new double[1];
 	double det = 1;
@@ -98,12 +66,9 @@ public class GeneralMatrix extends Matrix {
 	return det;
     }
 
-    /**
-     * Add the matrix to another matrix A.
-     *
+    /* Add the matrix to another matrix A.
      * @param A  The Matrix to add to this matrix.
-     * @return   The sum of this matrix with the matrix A.
-     */
+     * @return   The sum of this matrix with the matrix A.*/
     public Matrix add(Matrix A) {
 	if(this.n==A.n && this.m==A.m){
 	    GeneralMatrix rMatrix = new GeneralMatrix(this.m,this.n);
@@ -118,13 +83,10 @@ public class GeneralMatrix extends Matrix {
 	}
     }
     
-    /**
-     * Multiply the matrix by another matrix A. This is a _left_ product,
+    /* Multiply the matrix by another matrix A. This is a _left_ product,
      * i.e. if this matrix is called B then it calculates the product BA.
-     *
      * @param A  The Matrix to multiply by.
-     * @return   The product of this matrix with the matrix A.
-     */
+     * @return   The product of this matrix with the matrix A.*/
     public Matrix multiply(Matrix A) {
 	double rowt;
 	if(this.n==A.m){
@@ -144,12 +106,9 @@ public class GeneralMatrix extends Matrix {
 	  }
     }
 
-    /**
-     * Multiply the matrix by a scalar.
-     *
+    /* Multiply the matrix by a scalar.
      * @param a  The scalar to multiply the matrix by.
-     * @return   The product of this matrix with the scalar a.
-     */
+     * @return   The product of this matrix with the scalar a.*/
     public Matrix multiply(double a) {
 	GeneralMatrix rMatrix = new GeneralMatrix(this.m,this.n); 
 	for(int i=0;i<this.m;i++){
@@ -161,10 +120,8 @@ public class GeneralMatrix extends Matrix {
     }
 
 
-    /**
-     * Populates the matrix with random numbers which are uniformly
-     * distributed between 0 and 1.
-     */
+    /* Populates the matrix with random numbers which are uniformly
+     * distributed between 0 and 1.*/
     public void random() {
 	for(int i=0;i<this.m;i++){
 	    for(int j=0;j<this.n;j++){
@@ -173,34 +130,13 @@ public class GeneralMatrix extends Matrix {
 	}
     }
 
-    /**
-     * Returns the LU decomposition of this matrix; i.e. two matrices L and U
-     * so that A = LU, where L is lower-diagonal and U is upper-diagonal.
-     * 
-     * On exit, decomp returns the two matrices in a single matrix by packing
-     * both matrices as follows:
-     *
-     * [ u_11 u_12 u_13 u_14 ]
-     * [ l_21 u_22 u_23 u_24 ]
-     * [ l_31 l_32 u_33 u_34 ]
-     * [ l_41 l_42 l_43 l_44 ]
-     *
-     * where u_ij are the elements of U and l_ij are the elements of l. When
-     * calculating the determinant you will need to multiply by the value of
-     * d[0] calculated by the function.
-     * 
-     * If the matrix is singular, then the routine throws a MatrixException.
-     *
-     * This method is an adaptation of the one found in the book "Numerical
-     * Recipies in C" (see online for more details).
-     * 
+    /* Returns the LU decomposition of this matrix; i.e. two matrices L and U
+     * so that A = LU, where L is lower-diagonal and U is upper-diagonal. 
      * @param d  An array of length 1. On exit, the value contained in here
      *           will either be 1 or -1, which you can use to calculate the
      *           correct sign on the determinant.
-     * @return   The LU decomposition of the matrix.
-     */
+     * @return   The LU decomposition of the matrix.*/
     public GeneralMatrix decomp(double[] d) {
-        // This method is complete. You should not even attempt to change it!!
         if (n != m)
             throw new MatrixException("Matrix is not square");
         if (d.length != 1)
@@ -262,9 +198,7 @@ public class GeneralMatrix extends Matrix {
         return a;
     }
 
-    /*
-     * Your tester function should go here.
-     */
+// Tester function
     public static void main(String[] args) {
 	Matrix A = new GeneralMatrix(2,2);
 	A.setIJ(0,0,4);
