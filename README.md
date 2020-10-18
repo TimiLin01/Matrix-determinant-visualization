@@ -13,4 +13,4 @@ TriMatrix.java: another subclass of Matrix which describes a nxn real tri-diagon
 
 Project3.java: a completely separate class which will use Matrix and its subclasses to collect some basic statistics involving random matrices.
 
-And the VarGraph.pdf shows the distribution of determinants' variances.
+variance.data is the output of Project3.java and the VarGraph.pdf these variances.
