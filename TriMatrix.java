@@ -1,40 +1,16 @@
-/*
- * PROJECT III: TriMatrix.java
- *
- * This file contains a template for the class TriMatrix. Not all methods are
- * implemented. Make sure you have carefully read the project formulation
- * before starting to work on this file. You will also need to have completed
- * the Matrix class.
- *
- * Remember not to change the names, parameters or return types of any
- * variables in this file!
- *
- * The function of the methods and instance variables are outlined in the
- * comments directly above them.
- */
-
 public class TriMatrix extends Matrix {
-    /**
-     * An array holding the diagonal elements of the matrix.
-     */
+ /* An array holding the diagonal elements of the matrix.*/
     private double[] diag;
 
-    /**
-     * An array holding the upper-diagonal elements of the matrix.
-     */
+    /* An array holding the upper-diagonal elements of the matrix.*/
     private double[] upper;
 
-    /**
-     * An array holding the lower-diagonal elements of the matrix.
-     */
+    /* An array holding the lower-diagonal elements of the matrix.*/
     private double[] lower;
     
-    /**
-     * Constructor function: should initialise m and n through the Matrix
+    /* Constructor function: should initialise m and n through the Matrix
      * constructor and set up the data array.
-     *
-     * @param N  The dimension of the array.
-     */
+     * @param N  The dimension of the array.*/
     public TriMatrix(int N) {
 	super(N,N);
 	if(N<1){
@@ -45,13 +21,10 @@ public class TriMatrix extends Matrix {
 	lower = new double[N-1];
     }
     
-    /**
-     * Getter function: return the (i,j)'th entry of the matrix.
-     *
+    /* Getter function: return the (i,j)'th entry of the matrix.
      * @param i  The location in the first co-ordinate.
      * @param j  The location in the second co-ordinate.
-     * @return   The (i,j)'th entry of the matrix.
-     */
+     * @return   The (i,j)'th entry of the matrix.*/
     public double getIJ(int i, int j) {
 	if(i>=0 && i<m && j>=0 && j<n){
 	  if(i==j){
@@ -68,13 +41,10 @@ public class TriMatrix extends Matrix {
 	}
     }
     
-    /**
-     * Setter function: set the (i,j)'th entry of the data array.
-     *
+    /* Setter function: set the (i,j)'th entry of the data array.
      * @param i    The location in the first co-ordinate.
      * @param j    The location in the second co-ordinate.
-     * @param val  The value to set the (i,j)'th entry to.
-     */
+     * @param val  The value to set the (i,j)'th entry to.*/
     public void setIJ(int i, int j, double val) {
 	if(i>=0 && i<m && j>=0 && j<n){
 	  if(i==j){
@@ -91,11 +61,8 @@ public class TriMatrix extends Matrix {
 	}
     }
     
-    /**
-     * Return the determinant of this matrix.
-     *
-     * @return The determinant of the matrix.
-     */
+    /* Return the determinant of this matrix.
+     * @return The determinant of the matrix.*/
     public double determinant() {
 	double det = 1;
 	TriMatrix LU = this.decomp();
@@ -105,12 +72,9 @@ public class TriMatrix extends Matrix {
 	return det;
     }
     
-    /**
-     * Returns the LU decomposition of this matrix. See the formulation for a
+    /* Returns the LU decomposition of this matrix. See the formulation for a
      * more detailed description.
-     * 
-     * @return The LU decomposition of this matrix.
-     */
+     * @return The LU decomposition of this matrix.*/
     public TriMatrix decomp() {
         TriMatrix LU = new TriMatrix(this.n);
 	LU.setIJ(0,0,this.getIJ(0,0));
@@ -124,12 +88,9 @@ public class TriMatrix extends Matrix {
 	return LU;
     }
 
-    /**
-     * Add the matrix to another matrix A.
-     *
+    /* Add the matrix to another matrix A.
      * @param A  The Matrix to add to this matrix.
-     * @return   The sum of this matrix with the matrix A.
-     */
+     * @return   The sum of this matrix with the matrix A. */
     public Matrix add(Matrix A){
 	if(A instanceof GeneralMatrix){
 	  return A.add(this);
@@ -158,13 +119,10 @@ public class TriMatrix extends Matrix {
 	}
     }
     
-    /**
-     * Multiply the matrix by another matrix A. This is a _left_ product,
+    /* Multiply the matrix by another matrix A. This is a _left_ product,
      * i.e. if this matrix is called B then it calculates the product BA.
-     *
      * @param A  The Matrix to multiply by.
-     * @return   The product of this matrix with the matrix A.
-     */
+     * @return   The product of this matrix with the matrix A.*/
     public Matrix multiply(Matrix A) {
 	double rowt;
 	if(this.n==A.m){
@@ -184,12 +142,9 @@ public class TriMatrix extends Matrix {
 	}
     }
     
-    /**
-     * Multiply the matrix by a scalar.
-     *
+    /* Multiply the matrix by a scalar.
      * @param a  The scalar to multiply the matrix by.
-     * @return   The product of this matrix with the scalar a.
-     */
+     * @return   The product of this matrix with the scalar a.*/
     public Matrix multiply(double a) {
 	TriMatrix rMatrix = new TriMatrix(this.n);
 	for(int u=0;u<this.n-1;u++){
@@ -204,10 +159,8 @@ public class TriMatrix extends Matrix {
 	return rMatrix;
     }
 
-    /**
-     * Populates the matrix with random numbers which are uniformly
-     * distributed between 0 and 1.
-     */
+    /* Populates the matrix with random numbers which are uniformly
+     * distributed between 0 and 1.*/
     public void random() {
 	for(int u=0;u<this.n-1;u++){
 	    this.setIJ(u,u+1,Math.random());
@@ -220,9 +173,7 @@ public class TriMatrix extends Matrix {
 	}
     }
     
-    /*
-     * Your tester function should go here.
-     */
+  //Tester function
     public static void main(String[] args) {
 	Matrix A = new TriMatrix(3);
 	A.setIJ(0,0,1);
